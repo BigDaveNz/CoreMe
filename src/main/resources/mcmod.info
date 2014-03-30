@@ -1,0 +1,16 @@
+[
+{
+  "modid": "TrackMe",
+  "name": "Track Me",
+  "description": "Tracks everything the player does. Used as an external API for many BDNZ mods",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "bigdavenz.co.nz/trackme",
+  "updateUrl": "bigdavenz.co.nz/trackme/files",
+  "authors": ["David J.  Dudson"],
+  "credits": "All of #MinecraftForge and the modding community",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
