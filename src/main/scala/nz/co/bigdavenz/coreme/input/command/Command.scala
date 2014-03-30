@@ -17,6 +17,6 @@ import net.minecraft.command.ICommandSender
  *
  * Handles All Non Admin Commands
  */
-class Command extends CommandBase {
+abstract class Command extends CommandBase {
   override def getRequiredPermissionLevel: Int = 1
 }

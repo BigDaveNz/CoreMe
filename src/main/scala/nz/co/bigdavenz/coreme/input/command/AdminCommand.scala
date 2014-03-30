@@ -16,6 +16,6 @@ import net.minecraft.entity.player.EntityPlayer
  *
  * Admin Only Commands
  */
-class AdminCommand extends Command {
+abstract class AdminCommand extends Command {
   override def getRequiredPermissionLevel: Int = 4
 }
