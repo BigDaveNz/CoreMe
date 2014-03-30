@@ -8,17 +8,21 @@ package nz.co.bigdavenz.coreme
 
 import cpw.mods.fml.common.Mod
 import cpw.mods.fml.common.Mod.EventHandler
-import cpw.mods.fml.common.event.FMLInitializationEvent
 
 /**
  * Created by BigDaveNz aka David J. Dudson.
  * Date 30/03/2014.
  * Time 4:12 PM.
+ *
+ * Core class for CoreMe
  */
 
 @Mod(modid = "CoreMe", version = "This-Doesnt-Mean-Anything-Look-At-The-File")
 class CoreMe {
 
-  @EventHandler def init(event: FMLInitializationEvent) {
+  import cpw.mods.fml.common.event.FMLServerStartingEvent
+
+  @EventHandler
+  def serverLoad(event: FMLServerStartingEvent) {
   }
 }
