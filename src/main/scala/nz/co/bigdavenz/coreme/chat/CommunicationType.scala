@@ -12,6 +12,13 @@ package nz.co.bigdavenz.coreme.chat
  * Time 6:14 PM.
  */
 class CommunicationType extends Enumeration {
+
+  /**
+   * Error - For red error messages
+   * Warning - For oragnge warning messages
+   * Celebration - For gold celebration text
+   * Notification - For general notifications
+   */
   type CommunicationType = Value
-  val ERROR, WARNING, DEBUG, CELEBRATION, NOTIFICATION = Value
+  val ERROR, WARNING, CELEBRATION, NOTIFICATION = Value
 }
