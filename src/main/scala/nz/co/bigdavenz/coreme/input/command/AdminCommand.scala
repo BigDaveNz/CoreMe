@@ -14,8 +14,12 @@ import net.minecraft.entity.player.EntityPlayer
  * Date 31/03/2014.
  * Time 12:39 AM.
  *
- * Admin Only Commands
+ * Admin Only Commands. Defined as someone who also has access to the stop command
  */
 abstract class AdminCommand extends Command {
+  /**
+   * Overrides permission requirements
+   * @return 4
+   */
   override def getRequiredPermissionLevel: Int = 4
 }

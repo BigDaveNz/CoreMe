@@ -6,22 +6,18 @@
 
 package nz.co.bigdavenz.coreme.input.command
 
-import net.minecraft.command.CommandBase
-import net.minecraft.command.ICommandSender
-
-
 /**
  * Created by BigDaveNz aka David J. Dudson.
  * Date 31/03/2014.
- * Time 12:29 AM.
+ * Time 1:40 PM.
  *
- * Handles All Non Admin Commands
+ * Commands for Op's. Defined as people who can ban/kick etc. on servers
  */
-abstract class Command extends CommandBase {
+abstract class OperatorCommand extends Command{
 
   /**
-   * override the required permissions to allow all players
-   * @return 0
+   * Override permission requirements
+   * @return 3
    */
-  override def getRequiredPermissionLevel: Int = 0
+  override def getRequiredPermissionLevel: Int = 3
 }
