@@ -7,7 +7,7 @@
 package nz.co.bigdavenz.coreme
 
 import cpw.mods.fml.common.Mod
-import cpw.mods.fml.common.Mod.EventHandler
+import scala.beans.BeanProperty
 
 /**
  * Created by BigDaveNz aka David J. Dudson.
@@ -17,12 +17,9 @@ import cpw.mods.fml.common.Mod.EventHandler
  * Core class for CoreMe
  */
 
-@Mod(modid = "CoreMe", version = "This-Doesnt-Mean-Anything-Look-At-The-File")
-class CoreMe {
+@Mod(modid = "CoreMe", version = "This-Doesnt-Mean-Anything-Look-At-The-File", modLanguage = "scala")
+object CoreMe {
 
-  import cpw.mods.fml.common.event.FMLServerStartingEvent
+  @BeanProperty val modInitial = "CM"
 
-  @EventHandler
-  def serverLoad(event: FMLServerStartingEvent) {
-  }
 }

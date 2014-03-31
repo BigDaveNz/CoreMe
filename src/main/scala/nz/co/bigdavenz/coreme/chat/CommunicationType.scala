@@ -6,19 +6,21 @@
 
 package nz.co.bigdavenz.coreme.chat
 
+
 /**
  * Created by BigDaveNz aka David J. Dudson.
- * Date 30/03/2014.
- * Time 6:14 PM.
+ * Date 31/03/2014.
+ * Time 3:09 PM.
+ *
+ * Allows for types such as broadcasts etc.
  */
-class CommunicationType extends Enumeration {
+object CommunicationType extends Enumeration {
 
   /**
-   * Error - For red error messages
-   * Warning - For orange warning messages
-   * Celebration - For gold celebration text
-   * Notification - For general notifications
+   * Broadcast - For server broadcasts
+   * Console - For console output
+   * Player - For player output
    */
   type CommunicationType = Value
-  val ERROR, WARNING, CELEBRATION, NOTIFICATION = Value
+  val BROADCAST, CONSOLE, PLAYER = Value
 }
