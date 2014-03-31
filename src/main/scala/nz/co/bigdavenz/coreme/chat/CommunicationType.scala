@@ -15,7 +15,7 @@ class CommunicationType extends Enumeration {
 
   /**
    * Error - For red error messages
-   * Warning - For oragnge warning messages
+   * Warning - For orange warning messages
    * Celebration - For gold celebration text
    * Notification - For general notifications
    */
