@@ -4,6 +4,8 @@
  * Released under GNU General Public Licence version 3 https://www.gnu.org/licenses/gpl.html
  */
 
+
+
 buildscript {
     repositories {
         mavenCentral()
@@ -27,7 +29,7 @@ apply plugin: 'idea'
 
 String forgeVersion = "1.7.2-10.12.0.1047"
 
-version = "${forgeVersion}-${alpha}-SNAPSHOT"
+version = "${forgeVersion}-alpha-SNAPSHOT"
 group = "nz.co.bigdavenz"
 archivesBaseName = "TrackMe"
 
