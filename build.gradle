@@ -1,3 +1,9 @@
+/*
+ * CoreMe Minecraft Mod API
+ * Copyright (c) 2014 by BigDaveNz aka David J. Dudson (bigdavenz@bigdavenz.co.nz).
+ * Released under GNU General Public Licence version 3 https://www.gnu.org/licenses/gpl.html
+ */
+
 buildscript {
     repositories {
         mavenCentral()
@@ -18,22 +24,11 @@ buildscript {
 apply plugin: 'forge'
 apply plugin: 'scala'
 apply plugin: 'idea'
-apply plugin: 'github-pages'
 
 String forgeVersion = "1.7.2-10.12.0.1047"
-int newVersion = Integer.parseInt(minorVersion) + 1
 
-ant.propertyfile(
-        file: "gradle.properties") {
-    entry(key: "minorVersion", value: newVersion)
-}
-
-version = "${forgeVersion}-${0}.${newVersion}"
-group = "nz.co.bigdavenz" /*
- * CoreMe Minecraft Mod API
- * Copyright (c) 2014 by BigDaveNz aka David J. Dudson (bigdavenz@bigdavenz.co.nz).
- * Released under GNU General Public Licence version 3 https://www.gnu.org/licenses/gpl.html
- */ // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = "${forgeVersion}-${alpha}-SNAPSHOT"
+group = "nz.co.bigdavenz"
 archivesBaseName = "TrackMe"
 
 minecraft {
