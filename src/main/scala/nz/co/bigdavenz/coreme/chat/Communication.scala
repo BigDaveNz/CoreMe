@@ -6,7 +6,6 @@
 
 package nz.co.bigdavenz.coreme.chat
 
-import nz.co.bigdavenz.coreme.chat.CommunicationStyle.CommunicationStyle
 import scala.beans.BeanProperty
 
 
@@ -22,15 +21,15 @@ abstract class Communication(@BeanProperty val modInitial: String, @BeanProperty
   /**
    * The send function is what actually sends the communication
    */
-  def send
+  def send()
 
   /**
    * Apply method simply calls the constructor and the send method. If you don't want messages sent automatically use the new Keyword
    * @param modInitial - The initials of your mod. For instance Buildcraft = BC.
    * @param message - the message which is to be sent
    */
-  def apply(modInitial: String, message: String, style: CommunicationStyle): Unit = {
-    this(modInitial, message, style)
+  def apply(modInitial: String, message: String): Unit = {
+    this(modInitial, message)
     this.send
   }
 }

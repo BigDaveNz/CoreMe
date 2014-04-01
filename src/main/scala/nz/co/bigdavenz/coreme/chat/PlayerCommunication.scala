@@ -6,6 +6,8 @@
 
 package nz.co.bigdavenz.coreme.chat
 
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.server.MinecraftServer
 import net.minecraft.util.{ChatComponentText, IChatComponent, EnumChatFormatting, ChatStyle}
 import nz.co.bigdavenz.coreme.chat.CommunicationStyle._
 import scala.beans.BeanProperty
@@ -17,15 +19,16 @@ import scala.beans.BeanProperty
  *
  * Sends messages in game
  */
-class PlayerCommunication(modInitial: String, message: String, @BeanProperty var requiredStyle: CommunicationStyle, @BeanProperty var broadcast: Boolean) extends Communication(modInitial, message) {
+class PlayerCommunication(modInitial: String, message: String, @BeanProperty val requiredStyle: CommunicationStyle, @BeanProperty val player: Option[EntityPlayer]) extends Communication(modInitial, message) {
 
   /**
    * The send function is what actually sends the communication
+   * Either by broadcasting through the configuration manager or by sending a chat message specific to the player
    */
   override def send: Unit = {
-    broadcast match {
-      case true =>
-      case false =>
+    getPlayer match {
+      case Some(p) => p.addChatMessage(this.getChatComponent)
+      case None => MinecraftServer.getServer.getConfigurationManager.sendChatMsg(this.getChatComponent)
     }
   }
 
@@ -41,7 +44,7 @@ class PlayerCommunication(modInitial: String, message: String, @BeanProperty var
    * Gets the appropriate chat style based on message type
    * @return chat style for the message
    */
-  @BeanProperty var style: ChatStyle = {
+  @BeanProperty val style: ChatStyle = {
     requiredStyle match {
       case CommunicationStyle.ERROR => new ChatStyle().setColor(EnumChatFormatting.RED).setBold(true)
       case CommunicationStyle.WARNING => new ChatStyle().setColor(EnumChatFormatting.GOLD).setBold(true)
@@ -52,12 +55,12 @@ class PlayerCommunication(modInitial: String, message: String, @BeanProperty var
   }
 
   /**
-   *
+   * gets the text to be displayed in the communication, adds mod info and
    * @return the text component of the message
    */
-  @BeanProperty var chatText: ChatComponentText = {
-    broadcast match {
-      case true => new ChatComponentText("[" + modInitial + "-BROADCAST-" + requiredStyle + "] " + message)
+  @BeanProperty val chatText: ChatComponentText = {
+    player match {
+      case None => new ChatComponentText("[" + modInitial + "-BROADCAST-" + requiredStyle + "] " + message)
       case _ => new ChatComponentText("[" + modInitial + "-" + requiredStyle + "] " + message)
     }
   }

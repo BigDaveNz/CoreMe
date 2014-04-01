@@ -21,5 +21,4 @@ import scala.beans.BeanProperty
 object CoreMe {
 
   @BeanProperty val modInitial = "CM"
-
 }
