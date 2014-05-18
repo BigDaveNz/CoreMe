@@ -4,12 +4,12 @@
  * Released under GNU General Public Licence version 3 https://www.gnu.org/licenses/gpl.html
  */
 
-package nz.co.bigdavenz.coreme.chat
+package nz.co.bigdavenz.coreme.core.chat
 
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.server.MinecraftServer
 import net.minecraft.util.{ChatComponentText, IChatComponent, EnumChatFormatting, ChatStyle}
-import nz.co.bigdavenz.coreme.chat.CommunicationStyle._
+import nz.co.bigdavenz.coreme.core.chat.CommunicationStyle._
 import scala.beans.BeanProperty
 
 /**

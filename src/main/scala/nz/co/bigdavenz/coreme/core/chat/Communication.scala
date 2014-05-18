@@ -4,7 +4,7 @@
  * Released under GNU General Public Licence version 3 https://www.gnu.org/licenses/gpl.html
  */
 
-package nz.co.bigdavenz.coreme.chat
+package nz.co.bigdavenz.coreme.core.chat
 
 import scala.beans.BeanProperty
 
