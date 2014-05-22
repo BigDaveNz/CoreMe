@@ -64,4 +64,9 @@ class PlayerCommunication(modInitial: String, message: String, @BeanProperty val
       case _ => new ChatComponentText("[" + modInitial + "-" + requiredStyle + "] " + message)
     }
   }
+
+  def apply(modInitial: String, message: String, style: CommunicationStyle, player: Option[EntityPlayer]) {
+    this(modInitial, message, style, player)
+    this.send
+  }
 }

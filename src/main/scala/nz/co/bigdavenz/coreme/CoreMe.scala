@@ -7,6 +7,11 @@
 package nz.co.bigdavenz.coreme
 
 import cpw.mods.fml.common.Mod
+import cpw.mods.fml.common.Mod.EventHandler
+import cpw.mods.fml.common.event.{FMLPreInitializationEvent, FMLServerStartingEvent}
+import net.minecraftforge.common.MinecraftForge
+import nz.co.bigdavenz.coreme.core.chat.{CommunicationStyle, ConsoleCommunication}
+import nz.co.bigdavenz.coreme.core.input.command.CommandHandler
 import scala.beans.BeanProperty
 
 /**
@@ -20,5 +25,20 @@ import scala.beans.BeanProperty
 @Mod(modid = "CoreMe", version = "This-Doesnt-Mean-Anything-Look-At-The-File", modLanguage = "scala")
 object CoreMe {
 
+  @EventHandler
+  def serverStarting(event: FMLServerStartingEvent): Unit = {
+    event.registerServerCommand(new CommandHandler)
+    new ConsoleCommunication(CoreMe.getModInitial, "Server Started, Command Handler Registered", CommunicationStyle.NOTIFICATION)
+  }
+
+  @EventHandler
+  def preInit(event: FMLPreInitializationEvent): Unit = {
+    MinecraftForge.EVENT_BUS.register( new)
+  }
+
+
+  /**
+   * Initials for this mod
+   */
   @BeanProperty val modInitial = "CM"
 }
