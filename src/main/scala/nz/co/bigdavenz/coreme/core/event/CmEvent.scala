@@ -12,7 +12,7 @@ import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraftforge.event.entity.living.LivingHurtEvent
 import nz.co.bigdavenz.coreme.CoreMe
-import nz.co.bigdavenz.coreme.core.chat.{ConsoleCommunication, CommunicationStyle, PlayerCommunication}
+import nz.co.bigdavenz.coreme.core.chat.{CommunicationPrefix, ConsoleCommunication, CommunicationStyle, PlayerCommunication}
 import scala.beans.BeanProperty
 
 /**
@@ -36,20 +36,20 @@ class CmEvent {
     val minute = (hour._2 / getMinuteTicks, hour._2 % getMinuteTicks)
     val second = (minute._2 / getSecondTicks, minute._2 % getSecondTicks)
     val tick = second._2
-    day._1 + " Day(s)" + hour._1 + ":" + minute._1 + "." + second._1 + "." + tick
+    "Server Uptime: Day - " + day._1 + " Time - " + hour._1 + ":" + minute._1 + "." + second._1 + " " + " Ticks - " + tick
   }
 
   @SubscribeEvent
   def onPlayerLogin(event: PlayerEvent.PlayerLoggedInEvent) {
-    new PlayerCommunication(CoreMe.getModInitial, "Minecraft limits your potential!, together we can unlock your full potential!", CommunicationStyle.NOTIFICATION, Some(event.player)).sendWithoutPrefix
+    new PlayerCommunication(CoreMe.getModInitial, "Minecraft limits your potential! I'll show you true power!", CommunicationStyle.NOTIFICATION, Some(event.player), CommunicationPrefix.NONE).send
   }
 
   @SubscribeEvent
   def onLivingHurt(event: LivingHurtEvent) {
     event.entity match {
       case player: EntityPlayer =>
-        new ConsoleCommunication(CoreMe.getModInitial, "AARGHH, Im hurt!!! Amount: " + event.ammount + " , Source: " + event.source.getDamageType + ", Entity: " + player.getDisplayName, CommunicationStyle.NOTIFICATION).sendWithoutPrefix
-        new PlayerCommunication(CoreMe.getModInitial, "AARGHH, Your hurt!!! Amount: " + event.ammount + " , Source: " + event.source.getDamageType, CommunicationStyle.NOTIFICATION, Some(player)).sendWithoutPrefix
+        new ConsoleCommunication(CoreMe.getModInitial, "AARGHH, Im hurt!!! Amount: " + event.ammount + " , Source: " + event.source.getDamageType + ", Entity: " + player.getDisplayName, CommunicationStyle.NOTIFICATION, CommunicationPrefix.NONE).send
+        new PlayerCommunication(CoreMe.getModInitial, "AARGHH, Your hurt!!! Amount: " + event.ammount + " , Source: " + event.source.getDamageType, CommunicationStyle.NOTIFICATION, Some(player), CommunicationPrefix.NONE).send
       case _ =>
     }
   }

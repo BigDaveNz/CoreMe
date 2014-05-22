@@ -35,7 +35,7 @@ abstract class Communication(@BeanProperty val modInitial: String, @BeanProperty
       case CommunicationPrefix.MOD_ID => "[" + CoreMe.getModInitial + "] "
       case CommunicationPrefix.NONE => ""
       case CommunicationPrefix.TYPE => "[" + getPrefixType + "] "
-      case CommunicationPrefix.ALL => "[" + CoreMe.getModInitial "-" + getPrefixType + "]"
+      case CommunicationPrefix.ALL => "[" + CoreMe.getModInitial + "-" + getPrefixType + "]"
       case _ => "ERRORS EVERYWHERE REPORT THIS TO BIGDAVENZ -> Communication/prefix"
     }
   }
