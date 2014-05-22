@@ -10,6 +10,7 @@ import net.minecraft.command.{ICommandSender, CommandBase}
 import net.minecraft.entity.player.EntityPlayer
 import nz.co.bigdavenz.coreme.CoreMe
 import nz.co.bigdavenz.coreme.core.chat.{CommunicationPrefix, CommunicationStyle, PlayerCommunication}
+import nz.co.bigdavenz.coreme.core.gui.TimeGui
 
 /**
  * Created by BigDaveNz aka David J. Dudson.
@@ -40,7 +41,8 @@ class CommandHandler extends CommandBase {
   override def processCommand(var1: ICommandSender, var2: Array[String]): Unit = {
 
     if (var2.nonEmpty) var2(0) match {
-      case "time" => new PlayerCommunication(CoreMe.getModInitial, CoreMe.getEventHandler.getDisplayTime, CommunicationStyle.NOTIFICATION, Some(var1.asInstanceOf[EntityPlayer]), CommunicationPrefix.NONE).send
+      case "time" if !TimeGui.getShow => TimeGui.setShow(true)
+      case "time" if !TimeGui.getShow => TimeGui.setShow(true)
       case _ => new PlayerCommunication(CoreMe.getModInitial, "What is this bullshit command you are trying to send me?? Try again... Command was: " + var2.mkString(","), CommunicationStyle.NOTIFICATION, Some(var1.asInstanceOf[EntityPlayer]), CommunicationPrefix.NONE).send
     }
 

@@ -9,10 +9,14 @@ package nz.co.bigdavenz.coreme.core.event
 import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import cpw.mods.fml.common.gameevent.PlayerEvent
 import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent
+import cpw.mods.fml.relauncher.{Side, SideOnly}
+import java.util.Calendar
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.event.entity.living.LivingHurtEvent
 import nz.co.bigdavenz.coreme.CoreMe
 import nz.co.bigdavenz.coreme.core.chat.{CommunicationPrefix, ConsoleCommunication, CommunicationStyle, PlayerCommunication}
+import nz.co.bigdavenz.coreme.core.gui.TimeGui
 import scala.beans.BeanProperty
 
 /**
@@ -29,6 +33,8 @@ class CmEvent {
   @BeanProperty val hourTicks: Int = 72000
   @BeanProperty val minuteTicks: Int = 1200
   @BeanProperty val secondTicks: Int = 20
+  @BeanProperty var timeLastSecond: Long = 0
+  @BeanProperty var tps: Double = 0
 
   def getDisplayTime: String = {
     val day = (getServerTick / getDayTicks, getServerTick % getDayTicks)
@@ -36,12 +42,19 @@ class CmEvent {
     val minute = (hour._2 / getMinuteTicks, hour._2 % getMinuteTicks)
     val second = (minute._2 / getSecondTicks, minute._2 % getSecondTicks)
     val tick = second._2
-    "Server Uptime: Day - " + day._1 + " Time - " + hour._1 + ":" + minute._1 + "." + second._1 + " " + " Ticks - " + tick
+
+    "Day:" + day._1 + " H" + hour._1 + ":" + minute._1 + "." + second._1 + " T" + tick + " " + getTps.toString
   }
 
   @SubscribeEvent
   def onPlayerLogin(event: PlayerEvent.PlayerLoggedInEvent) {
     new PlayerCommunication(CoreMe.getModInitial, "Minecraft limits your potential! I'll show you true power!", CommunicationStyle.NOTIFICATION, Some(event.player), CommunicationPrefix.NONE).send
+  }
+
+  @SideOnly(Side.CLIENT)
+  @SubscribeEvent
+  def onRenderGUI(event: RenderGameOverlayEvent) {
+    TimeGui.render(event)
   }
 
   @SubscribeEvent
@@ -57,5 +70,11 @@ class CmEvent {
   @SubscribeEvent
   def onServerTick(event: ServerTickEvent) {
     serverTick += 1
+    if (getServerTick % 20 == 0) {
+      val mill = Calendar.getInstance().getTimeInMillis - getTimeLastSecond
+      setTimeLastSecond(Calendar.getInstance().getTimeInMillis)
+      setTps(mill / 1000.0 * 40)
+
+    }
   }
 }
