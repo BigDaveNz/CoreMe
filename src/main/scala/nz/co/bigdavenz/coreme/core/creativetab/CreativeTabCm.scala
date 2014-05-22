@@ -7,6 +7,8 @@
 package nz.co.bigdavenz.coreme.core.creativetab
 
 import net.minecraft.creativetab.CreativeTabs
+import net.minecraft.init.Items
+import net.minecraft.item.Item
 
 /**
  * Created by BigDaveNz aka David J. Dudson.
@@ -15,6 +17,6 @@ import net.minecraft.creativetab.CreativeTabs
  *
  * In game creative tab
  */
-class CreativeTabCm extends CreativeTabs {
-
+class CreativeTabCm(par1: Int, par2: String) extends CreativeTabs(par1, par2) {
+  override def getTabIconItem: Item = Items.cookie
 }

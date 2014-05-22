@@ -6,6 +6,9 @@
 
 package nz.co.bigdavenz.coreme.core.chat
 
+import nz.co.bigdavenz.coreme.CoreMe
+import nz.co.bigdavenz.coreme.core.chat.CommunicationPrefix.CommunicationPrefix
+import nz.co.bigdavenz.coreme.core.chat.CommunicationStyle.CommunicationStyle
 import scala.beans.BeanProperty
 
 
@@ -16,7 +19,8 @@ import scala.beans.BeanProperty
  *
  * Handles all communications
  */
-abstract class Communication(@BeanProperty val modInitial: String, @BeanProperty val message: String) {
+abstract class Communication(@BeanProperty val modInitial: String, @BeanProperty val message: String, @BeanProperty var style: CommunicationStyle, @BeanProperty var prefixType: CommunicationPrefix) {
+
 
   /**
    * The send function is what actually sends the communication
@@ -24,12 +28,15 @@ abstract class Communication(@BeanProperty val modInitial: String, @BeanProperty
   def send()
 
   /**
-   * Apply method simply calls the constructor and the send method. If you don't want messages sent automatically use the new Keyword
-   * @param modInitial - The initials of your mod. For instance Buildcraft = BC.
-   * @param message - the message which is to be sent
+   * Defines what prefix the message will use
    */
-  def apply(modInitial: String, message: String): Unit = {
-    this(modInitial, message)
-    this.send
+  @BeanProperty val prefix: String = {
+    getPrefixType match {
+      case CommunicationPrefix.MOD_ID => "[" + CoreMe.getModInitial + "] "
+      case CommunicationPrefix.NONE => ""
+      case CommunicationPrefix.TYPE => "[" + getPrefixType + "] "
+      case CommunicationPrefix.ALL => "[" + CoreMe.getModInitial "-" + getPrefixType + "]"
+      case _ => "ERRORS EVERYWHERE REPORT THIS TO BIGDAVENZ -> Communication/prefix"
+    }
   }
 }

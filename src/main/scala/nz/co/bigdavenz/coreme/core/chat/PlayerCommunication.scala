@@ -9,6 +9,7 @@ package nz.co.bigdavenz.coreme.core.chat
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.server.MinecraftServer
 import net.minecraft.util.{ChatComponentText, IChatComponent, EnumChatFormatting, ChatStyle}
+import nz.co.bigdavenz.coreme.core.chat.CommunicationPrefix.CommunicationPrefix
 import nz.co.bigdavenz.coreme.core.chat.CommunicationStyle._
 import scala.beans.BeanProperty
 
@@ -19,7 +20,7 @@ import scala.beans.BeanProperty
  *
  * Sends messages in game
  */
-class PlayerCommunication(modInitial: String, message: String, @BeanProperty val requiredStyle: CommunicationStyle, @BeanProperty val player: Option[EntityPlayer]) extends Communication(modInitial, message) {
+class PlayerCommunication(modInitial: String, message: String, style: CommunicationStyle, @BeanProperty val player: Option[EntityPlayer], prefix: CommunicationPrefix) extends Communication(modInitial, message, style, prefix) {
 
   /**
    * The send function is what actually sends the communication
@@ -37,15 +38,15 @@ class PlayerCommunication(modInitial: String, message: String, @BeanProperty val
    * @return - returns the appropriate component
    */
   def getChatComponent: IChatComponent = {
-    getChatText.setChatStyle(getStyle)
+    getChatText.setChatStyle(getChatStyle)
   }
 
   /**
    * Gets the appropriate chat style based on message type
    * @return chat style for the message
    */
-  @BeanProperty val style: ChatStyle = {
-    requiredStyle match {
+  @BeanProperty val chatStyle: ChatStyle = {
+    getStyle match {
       case CommunicationStyle.ERROR => new ChatStyle().setColor(EnumChatFormatting.RED).setBold(true)
       case CommunicationStyle.WARNING => new ChatStyle().setColor(EnumChatFormatting.GOLD).setBold(true)
       case CommunicationStyle.CELEBRATION => new ChatStyle().setColor(EnumChatFormatting.YELLOW).setBold(true)
@@ -60,13 +61,8 @@ class PlayerCommunication(modInitial: String, message: String, @BeanProperty val
    */
   @BeanProperty val chatText: ChatComponentText = {
     player match {
-      case None => new ChatComponentText("[" + modInitial + "-BROADCAST-" + requiredStyle + "] " + message)
-      case _ => new ChatComponentText("[" + modInitial + "-" + requiredStyle + "] " + message)
+      case None => new ChatComponentText(getPrefix + "[BROADCAST]" + message)
+      case _ => new ChatComponentText(getPrefix + message)
     }
-  }
-
-  def apply(modInitial: String, message: String, style: CommunicationStyle, player: Option[EntityPlayer]) {
-    this(modInitial, message, style, player)
-    this.send
   }
 }

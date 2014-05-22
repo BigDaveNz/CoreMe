@@ -7,8 +7,8 @@
 package nz.co.bigdavenz.coreme.core.chat
 
 import cpw.mods.fml.common.FMLLog
+import nz.co.bigdavenz.coreme.core.chat.CommunicationPrefix.CommunicationPrefix
 import nz.co.bigdavenz.coreme.core.chat.CommunicationStyle.CommunicationStyle
-import scala.beans.BeanProperty
 
 /**
  * Created by BigDaveNz aka David J. Dudson.
@@ -17,16 +17,16 @@ import scala.beans.BeanProperty
  *
  * Class for communicating with Console
  */
-class ConsoleCommunication(modInitial: String, message: String, @BeanProperty val style: CommunicationStyle) extends Communication(modInitial, message) {
+class ConsoleCommunication(modInitial: String, message: String, style: CommunicationStyle, prefix: CommunicationPrefix) extends Communication(modInitial, message, style, prefix) {
 
   /**
    * Sends the message based on style
    */
   def send {
     style match {
-      case CommunicationStyle.ERROR => FMLLog.severe("[" + modInitial.toUpperCase + "] " + message)
-      case CommunicationStyle.WARNING => FMLLog.warning("[" + modInitial.toUpperCase + "] " + message)
-      case _ => FMLLog.info("[" + modInitial.toUpperCase + "] " + message)
+      case CommunicationStyle.ERROR => FMLLog.severe(getPrefix + getMessage)
+      case CommunicationStyle.WARNING => FMLLog.warning(getPrefix + getMessage)
+      case _ => FMLLog.info(getPrefix + getMessage)
     }
   }
 }

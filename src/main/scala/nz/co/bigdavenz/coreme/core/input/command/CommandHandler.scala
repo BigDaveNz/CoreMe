@@ -19,12 +19,30 @@ import nz.co.bigdavenz.coreme.core.chat.{CommunicationStyle, PlayerCommunication
  * Handles all Game Commands
  */
 class CommandHandler extends CommandBase {
-  override def getCommandName: String = CoreMe.getModInitial
+  /**
+   * command name for input /[CommandName]
+   * @return command name
+   */
+  override def getCommandName: String = CoreMe.getModInitial.toLowerCase
 
-  override def getCommandUsage(var1: ICommandSender): String = "CommandUsage"
+  /**
+   * Default Command usage
+   * @param var1 Command sender
+   * @return default usage
+   */
+  override def getCommandUsage(var1: ICommandSender): String = "/cm [time]"
 
+  /**
+   * process the command, and get a result
+   * @param var1 Command sender
+   * @param var2 Command arguments
+   */
   override def processCommand(var1: ICommandSender, var2: Array[String]): Unit = {
 
-    new PlayerCommunication(CoreMe.getModInitial, var2.toString, CommunicationStyle.NOTIFICATION, Some(var1.asInstanceOf[EntityPlayer]))
+    var2(0) match {
+      case "time" => new PlayerCommunication(CoreMe.getModInitial, CoreMe.getEventHandler.getDisplayTime, CommunicationStyle.NOTIFICATION, Some(var1.asInstanceOf[EntityPlayer])).sendWithoutPrefix
+      case _ => new PlayerCommunication(CoreMe.getModInitial, "What is this bullshit command you are trying to send me?? Try again... Command was: " + var2.mkString(","), CommunicationStyle.NOTIFICATION, Some(var1.asInstanceOf[EntityPlayer])).sendWithoutPrefix
+    }
+
   }
 }

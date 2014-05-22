@@ -4,17 +4,17 @@
  * Released under GNU General Public Licence version 3 https://www.gnu.org/licenses/gpl.html
  */
 
-package nz.co.bigdavenz.coreme.core.tick
+package nz.co.bigdavenz.coreme.core.chat
 
 /**
  * Created by BigDaveNz aka David J. Dudson.
- * Date 18/05/2014.
- * Time 6:23 PM.
+ * Date 22/05/2014.
+ * Time 6:40 PM.
  *
- * Basically a timer
+ * Prefixes for communications
  */
-class TickHandler extends {
+object CommunicationPrefix extends Enumeration {
 
-  //todo implement tick handler
-  def getCurrentTick: Int = ???
+  type CommunicationPrefix = Value
+  val NONE, MOD_ID, TYPE, ALL = Value
 }
